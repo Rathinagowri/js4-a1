@@ -1,0 +1,85 @@
+<html>
+
+<form name="myform" style="background-color:blue;width:300px;height:300px;margin:100px;border:10px solid green;" id="myform">
+<center>
+<br>
+<br>
+<input type ="text" id = "a1" placeholder ="name"><br><br>
+<input type ="text" id = "a2" placeholder ="description"><br><br>
+<input type ="text" id = "a3" placeholder ="cost per kilometer"><br><br> 
+<select id = "a4" onchange="showDiv(this);hideDiv(this);">
+<option value="vehicle type"> vehicle type </option>
+<option value="2 wheeler"> 2 wheeler </option>
+<option value="4 wheeler"> 4 wheeler </option>
+</select><br><br>
+<select id = "a5" style="display: none;">
+<option> fuel type </option>
+<option> CNG </option>
+<option > Petrol </option>
+</select><br>
+<input type =button value="submit" id="a6" onclick="display();">
+<br>
+<br>
+
+<script>
+function showDiv(elem){
+  if(elem.value == "4 wheeler")
+        document.getElementById('a5').style.display ="block";
+    }
+function hideDiv(ele){
+  if(ele.value == "vehicle type" || ele.value == "2 wheeler")
+        document.getElementById('a5').style.display ="none";
+    }
+function display(){
+var u = document.forms["myform"]["a1"].value;
+var v = document.forms["myform"]["a2"].value;
+var m = document.forms["myform"]["a3"].value;
+var n = document.forms["myform"]["a4"].value;
+var o = document.forms["myform"]["a5"].value;
+
+var Twowhl = function(name,des,cost,veh) {
+this.name = name;
+this.des = des;
+this.cost= cost;
+this.veh = veh;
+};
+
+Twowhl.prototype.display = function(){
+document.getElementById("myform").innerHTML = "Name:"+ this.name +'<br>'+'<br>'+"Description:" +this.des+'<br>'+'<br>' +"Cost per Kilometer:" + this.cost+'<br>'+'<br>' +"vehicle type:" +this.veh; 
+
+};
+function Fourwhl(name,des,cost,veh,fuel) {
+  
+  Twowhl.call(this,name,des,cost,veh);
+
+    this.fuel = fuel;
+}
+
+
+Fourwhl.prototype = Object.create(Twowhl.prototype); 
+
+Fourwhl.prototype.display = function(){
+  document.getElementById("myform").innerHTML ="Name:"+ this.name +'<br>'+'<br>'+"Description:" +this.des+'<br>'+'<br>' +"Cost per Kilometer:" + this.cost+'<br>'+'<br>' +"vehicle type:" +this.veh+'<br>'+'<br>'+ "Fuel Type:"+this.fuel;
+};
+
+
+if(document.forms["myform"]["a4"].value == "2 wheeler")
+{
+var Twowhl1 = new Twowhl(u,v,m,n);
+Twowhl1.display();
+}
+else
+{
+var Fourwhl1 = new Fourwhl(u,v,m,n,o);
+Fourwhl1.display();
+}
+
+}
+
+
+</script>
+</form>
+</center>
+</html>
+
+
